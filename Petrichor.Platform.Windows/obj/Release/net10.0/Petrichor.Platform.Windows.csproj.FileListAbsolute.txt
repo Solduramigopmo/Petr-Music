@@ -1,0 +1,13 @@
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\bin\Release\net10.0\Petrichor.Platform.Windows.deps.json
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\bin\Release\net10.0\Petrichor.Platform.Windows.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\bin\Release\net10.0\Petrichor.Core.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\bin\Release\net10.0\Petrichor.Data.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.csproj.AssemblyReference.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.AssemblyInfoInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.AssemblyInfo.cs
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.csproj.CoreCompileInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petricho.31BC9680.Up2Date
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\Petrichor.Platform.Windows.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\refint\Petrichor.Platform.Windows.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Platform.Windows\obj\Release\net10.0\ref\Petrichor.Platform.Windows.dll

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Petrichor.App/Petrichor.App.csproj" />
+  <Project Path="Petrichor.Core/Petrichor.Core.csproj" />
+  <Project Path="Petrichor.Data/Petrichor.Data.csproj" />
+  <Project Path="Petrichor.Media/Petrichor.Media.csproj" />
+  <Project Path="Petrichor.Platform.Windows/Petrichor.Platform.Windows.csproj" />
+</Solution>

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Petrichor.Core/1.0.0": {
+        "runtime": {
+          "Petrichor.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Petrichor.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

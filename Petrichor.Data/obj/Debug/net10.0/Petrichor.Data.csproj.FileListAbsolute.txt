@@ -1,0 +1,15 @@
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\bin\Debug\net10.0\Petrichor.Data.deps.json
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\bin\Debug\net10.0\Petrichor.Data.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\bin\Debug\net10.0\Petrichor.Data.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\bin\Debug\net10.0\Petrichor.Core.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\bin\Debug\net10.0\Petrichor.Core.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.csproj.AssemblyReference.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.AssemblyInfoInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.AssemblyInfo.cs
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.csproj.CoreCompileInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petricho.C287F92F.Up2Date
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\refint\Petrichor.Data.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\Petrichor.Data.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Data\obj\Debug\net10.0\ref\Petrichor.Data.dll

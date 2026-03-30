@@ -1,0 +1,17 @@
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Media.deps.json
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Media.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Media.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Core.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Core.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.csproj.AssemblyReference.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.AssemblyInfoInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.AssemblyInfo.cs
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.csproj.CoreCompileInputs.cache
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petricho.B9520F00.Up2Date
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\refint\Petrichor.Media.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\Petrichor.Media.pdb
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\obj\Debug\net10.0\ref\Petrichor.Media.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Data.dll
+C:\Users\fayin\Downloads\Petrichor-main\Petrichor-main\Windows\Petrichor.Media\bin\Debug\net10.0\Petrichor.Data.pdb
