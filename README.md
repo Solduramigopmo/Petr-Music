@@ -32,7 +32,7 @@ This means the Windows version is already beyond a migration mockup. It has enou
 
 This branch is usable, but it is not fully closed out.
 
-The main unfinished area is distribution hardening. Portable packaging and an installer script already exist, but the full installer/update flow is still treated as in progress rather than finished. There are also parity gaps compared to the original macOS version in deeper product polish: some richer metadata views, queue-centric UX, broader audio parity, release QA depth, and a few higher-end convenience features are still on the backlog.
+The main unfinished area is distribution hardening. Portable packaging and an installer script already exist, but the full installer/update flow is still treated as in progress rather than finished. There are also parity gaps compared in deeper product polish: some richer metadata views, queue-centric UX, broader audio parity, release QA depth, and a few higher-end convenience features are still on the backlog.
 
 So the honest status is this: the Windows app works, but it is still an actively developed port rather than a frozen final release.
 
