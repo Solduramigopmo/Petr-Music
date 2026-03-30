@@ -943,6 +943,64 @@ public partial class MainWindow : Window
         SetActiveSection(PlaylistsSection);
     }
 
+    private async void AddTracksToPlaylistButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (libraryTracks.Count == 0)
+        {
+            ShowStyledInfoDialog(
+                "Add Tracks",
+                "Your library is empty right now. Add a library folder first, then come back to Playlists.");
+            return;
+        }
+
+        var selectedPlaylist = await EnsureEditablePlaylistForTrackAddAsync(
+            "Add Tracks",
+            "No playlist selected. Create a new playlist to start adding tracks.");
+        if (selectedPlaylist is null)
+        {
+            return;
+        }
+
+        var playlistTracks = await playlistTrackRepository.GetTracksForPlaylistAsync(selectedPlaylist.Id);
+        var existingTrackIds = playlistTracks
+            .Where(track => track.TrackId.HasValue)
+            .Select(track => track.TrackId!.Value)
+            .ToHashSet();
+
+        var availableTracks = libraryTracks
+            .Where(track => track.TrackId.HasValue)
+            .Where(track => !existingTrackIds.Contains(track.TrackId!.Value))
+            .OrderBy(track => string.IsNullOrWhiteSpace(track.Artist) ? "Unknown Artist" : track.Artist)
+            .ThenBy(track => string.IsNullOrWhiteSpace(track.Album) ? "Unknown Album" : track.Album)
+            .ThenBy(track => string.IsNullOrWhiteSpace(track.Title) ? Path.GetFileNameWithoutExtension(track.Path) : track.Title)
+            .ToArray();
+
+        if (availableTracks.Length == 0)
+        {
+            ShowStyledInfoDialog(
+                "Add Tracks",
+                $"All imported library tracks are already present in '{selectedPlaylist.Name}'.");
+            return;
+        }
+
+        var tracksToAdd = PromptForPlaylistTracks(selectedPlaylist.Name, availableTracks);
+        if (tracksToAdd.Count == 0)
+        {
+            return;
+        }
+
+        var updatedTrackIds = playlistTracks
+            .Where(track => track.TrackId.HasValue)
+            .Select(track => track.TrackId!.Value)
+            .Concat(tracksToAdd.Where(track => track.TrackId.HasValue).Select(track => track.TrackId!.Value))
+            .Distinct()
+            .ToArray();
+
+        await playlistTrackRepository.ReplaceTracksAsync(selectedPlaylist.Id, updatedTrackIds);
+        await ReloadPlaylistsAsync(selectedPlaylist.Id);
+        SetActiveSection(PlaylistsSection);
+    }
+
     private void PlaylistActionsMenuButton_Click(object sender, RoutedEventArgs e)
     {
         if (PlaylistActionsPopup is null)
@@ -1035,24 +1093,11 @@ public partial class MainWindow : Window
             return;
         }
 
-        var selectedPlaylist = GetSelectedPlaylist();
+        var selectedPlaylist = await EnsureEditablePlaylistForTrackAddAsync(
+            "Add Current Track",
+            "No playlist selected. Create a new playlist for the current track.");
         if (selectedPlaylist is null)
         {
-            var defaultName = $"Playlist {DateTime.Now:yyyy-MM-dd HH-mm}";
-            var playlistName = PromptForText("New Playlist", "No playlist selected. Create a new playlist for the current track", defaultName);
-            if (string.IsNullOrWhiteSpace(playlistName))
-            {
-                return;
-            }
-
-            selectedPlaylist = await CreatePlaylistAsync(playlistName.Trim(), 1);
-        }
-
-        if (!selectedPlaylist.IsContentEditable)
-        {
-            ShowStyledInfoDialog(
-                "Add Current Track",
-                "This playlist is smart/read-only. Choose a manual playlist or create a new one.");
             return;
         }
 
@@ -3519,6 +3564,35 @@ public partial class MainWindow : Window
         return playlist;
     }
 
+    private async Task<PlaylistReference?> EnsureEditablePlaylistForTrackAddAsync(string actionTitle, string createMessage)
+    {
+        var selectedPlaylist = GetSelectedPlaylist();
+        if (selectedPlaylist is null)
+        {
+            var defaultName = $"Playlist {DateTime.Now:yyyy-MM-dd HH-mm}";
+            var playlistName = PromptForText("New Playlist", createMessage, defaultName);
+            if (string.IsNullOrWhiteSpace(playlistName))
+            {
+                return null;
+            }
+
+            var createdPlaylist = await CreatePlaylistAsync(playlistName.Trim(), 0);
+            await ReloadPlaylistsAsync(createdPlaylist.Id);
+            SetActiveSection(PlaylistsSection);
+            selectedPlaylist = playlists.FirstOrDefault(playlist => playlist.Id == createdPlaylist.Id) ?? createdPlaylist;
+        }
+
+        if (!selectedPlaylist.IsContentEditable)
+        {
+            ShowStyledInfoDialog(
+                actionTitle,
+                "This playlist is smart/read-only. Choose a manual playlist or create a new one.");
+            return null;
+        }
+
+        return selectedPlaylist;
+    }
+
     private async Task SavePlaylistTrackOrderAsync(PlaylistReference playlist, IReadOnlyList<TrackReference> tracks, bool reloadPlaylists)
     {
         var orderedTrackIds = tracks
@@ -3587,6 +3661,133 @@ public partial class MainWindow : Window
         };
 
         return dialog.ShowDialog() == true ? input.Text : null;
+    }
+
+    private IReadOnlyList<TrackReference> PromptForPlaylistTracks(string playlistName, IReadOnlyList<TrackReference> availableTracks)
+    {
+        var dialog = CreateStyledDialogWindow("Add Tracks");
+
+        var searchBox = new System.Windows.Controls.TextBox
+        {
+            MinWidth = 420,
+            Margin = new Thickness(0, 12, 0, 0),
+            Padding = new Thickness(10, 8, 10, 8),
+            Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#101418")),
+            Foreground = System.Windows.Media.Brushes.White,
+            BorderBrush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2E4253")),
+            CaretBrush = System.Windows.Media.Brushes.White
+        };
+
+        var summaryTextBlock = new TextBlock
+        {
+            Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#8EA0B5")),
+            FontSize = 12,
+            Margin = new Thickness(0, 10, 0, 10)
+        };
+
+        var listBox = new System.Windows.Controls.ListBox
+        {
+            MinWidth = 620,
+            Height = 360,
+            SelectionMode = System.Windows.Controls.SelectionMode.Multiple,
+            Style = (Style)FindResource("PetrichorListBoxStyle"),
+            ItemContainerStyle = (Style)FindResource("PetrichorListBoxItemStyle"),
+            ItemTemplate = (DataTemplate)FindResource("TrackItemTemplate")
+        };
+
+        var addButton = CreateDialogButton("Add Selected", isPrimary: true);
+        addButton.Margin = new Thickness(0, 0, 10, 0);
+        addButton.IsDefault = true;
+        addButton.IsEnabled = false;
+
+        var cancelButton = CreateDialogButton("Cancel");
+        cancelButton.IsCancel = true;
+
+        void ApplyFilter()
+        {
+            var query = searchBox.Text.Trim();
+            var filteredTracks = availableTracks
+                .Where(track => MatchesTrackPickerQuery(track, query))
+                .ToArray();
+
+            listBox.ItemsSource = filteredTracks;
+            summaryTextBlock.Text = filteredTracks.Length == 0
+                ? "No library tracks match this search."
+                : $"{filteredTracks.Length} library tracks ready to add";
+        }
+
+        addButton.Click += (_, _) =>
+        {
+            if (listBox.SelectedItems.Count > 0)
+            {
+                dialog.DialogResult = true;
+            }
+        };
+
+        cancelButton.Click += (_, _) => dialog.DialogResult = false;
+        searchBox.TextChanged += (_, _) => ApplyFilter();
+        listBox.SelectionChanged += (_, _) => addButton.IsEnabled = listBox.SelectedItems.Count > 0;
+        listBox.MouseDoubleClick += (_, _) =>
+        {
+            if (listBox.SelectedItems.Count > 0)
+            {
+                dialog.DialogResult = true;
+            }
+        };
+
+        ApplyFilter();
+
+        dialog.Content = CreateDialogContent(
+            "Add Tracks",
+            $"Choose one or more library tracks to add to '{playlistName}'.",
+            new StackPanel
+            {
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "Search library",
+                        Foreground = System.Windows.Media.Brushes.White,
+                        FontSize = 13,
+                        FontWeight = FontWeights.SemiBold
+                    },
+                    searchBox,
+                    summaryTextBlock,
+                    listBox
+                }
+            },
+            new StackPanel
+            {
+                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
+                Children =
+                {
+                    addButton,
+                    cancelButton
+                }
+            });
+
+        dialog.Loaded += (_, _) => searchBox.Focus();
+
+        return dialog.ShowDialog() == true
+            ? listBox.SelectedItems.OfType<TrackReference>().ToArray()
+            : Array.Empty<TrackReference>();
+    }
+
+    private static bool MatchesTrackPickerQuery(TrackReference track, string query)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return true;
+        }
+
+        var title = string.IsNullOrWhiteSpace(track.Title) ? Path.GetFileNameWithoutExtension(track.Path) : track.Title;
+        var fileName = Path.GetFileName(track.Path);
+
+        return title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+               (!string.IsNullOrWhiteSpace(track.Artist) && track.Artist.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+               (!string.IsNullOrWhiteSpace(track.Album) && track.Album.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+               fileName.Contains(query, StringComparison.OrdinalIgnoreCase);
     }
 
     private void ShowStyledInfoDialog(string title, string message)
@@ -3711,16 +3912,12 @@ public partial class MainWindow : Window
             Height = 36,
             Cursor = System.Windows.Input.Cursors.Hand,
             Style = (Style)FindResource(
-                isDestructive || isPrimary
-                    ? "SidebarActionButtonStyle"
-                    : "TransportButtonStyle")
+                isDestructive
+                    ? "DialogDestructiveButtonStyle"
+                    : isPrimary
+                        ? "SidebarActionButtonStyle"
+                        : "TransportButtonStyle")
         };
-
-        if (isDestructive)
-        {
-            button.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#C84F63"));
-            button.Foreground = System.Windows.Media.Brushes.White;
-        }
 
         return button;
     }

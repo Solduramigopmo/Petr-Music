@@ -37,6 +37,16 @@
             <GradientStop Color="#35556D" Offset="1" />
         </LinearGradientBrush>
 
+        <LinearGradientBrush x:Key="DestructiveButtonBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#251A20" Offset="0" />
+            <GradientStop Color="#342128" Offset="1" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="DestructiveButtonHoverBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#2D1D24" Offset="0" />
+            <GradientStop Color="#3D2730" Offset="1" />
+        </LinearGradientBrush>
+
         <Style x:Key="SidebarActionButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="#08110E" />
             <Setter Property="FontSize" Value="13" />
@@ -133,6 +143,44 @@
             </Setter>
         </Style>
 
+        <Style x:Key="DialogDestructiveButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#F4DFE4" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{StaticResource DestructiveButtonBrush}" />
+            <Setter Property="BorderBrush" Value="#65434D" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="14"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="{StaticResource DestructiveButtonHoverBrush}" />
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#8B5E69" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.9" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="WindowChromeButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="#DCE7F3" />
             <Setter Property="FontSize" Value="14" />
@@ -191,6 +239,22 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Padding" Value="6" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="HasDropShadow" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="14"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ItemsPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="PetrichorContextMenuItemStyle" TargetType="MenuItem">
@@ -201,6 +265,35 @@
             <Setter Property="FontSize" Value="13" />
             <Setter Property="Padding" Value="10,8" />
             <Setter Property="Margin" Value="2,1" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Margin="{TemplateBinding Margin}"
+                                Padding="{TemplateBinding Padding}"
+                                TextElement.Foreground="{TemplateBinding Foreground}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter ContentSource="Header"
+                                              RecognizesAccessKey="True"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#1E2C38" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.92" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsHighlighted" Value="True">
                     <Setter Property="Background" Value="#1E2C38" />
@@ -214,6 +307,16 @@
         <Style x:Key="PetrichorContextMenuSeparatorStyle" TargetType="Separator">
             <Setter Property="Margin" Value="4,6" />
             <Setter Property="Background" Value="#263746" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Height="1"
+                                Margin="{TemplateBinding Margin}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="PetrichorSliderThumbStyle" TargetType="Thumb">
@@ -1079,20 +1182,18 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Playlists" Foreground="White" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
                                 <Button Grid.Column="1"
-                                        Content="+"
-                                        Width="38"
-                                        Height="34"
-                                        Margin="0,0,8,0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Style="{StaticResource TransportButtonStyle}"
+                                        Content="New Playlist"
+                                        Height="36"
+                                        Margin="0,0,10,0"
+                                        Padding="18,10"
+                                        Style="{StaticResource SidebarActionButtonStyle}"
                                         ToolTip="Create Playlist"
                                         Click="CreatePlaylistButton_Click" />
                                 <Button Grid.Column="2"
                                         x:Name="PlaylistActionsMenuButton"
                                         Content="⋯"
                                         Width="38"
-                                        Height="34"
+                                        Height="36"
                                         FontSize="18"
                                         FontWeight="SemiBold"
                                         Style="{StaticResource TransportButtonStyle}"
@@ -1142,7 +1243,7 @@
                                 </Popup>
                             </Grid>
                             <TextBlock Grid.Row="1"
-                                       Text="Saved playlist sources and queue presets. Double-click a playlist to restore its track flow into the player."
+                                       Text="Create playlists, add tracks from your library or current playback, then double-click a playlist to restore it into the player."
                                        Foreground="#9DB0C4"
                                        FontSize="14"
                                        TextWrapping="Wrap"
@@ -1172,16 +1273,19 @@
                                                  PreviewMouseWheel="PlaylistListBox_PreviewMouseWheel"
                                                  MouseDoubleClick="PlaylistsListBox_MouseDoubleClick"
                                                  >
-                                            <ListBox.ContextMenu>
-                                                <ContextMenu>
-                                                    <MenuItem Header="Pin Playlist"
-                                                              CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                                                              Click="PinPlaylistMenuItem_Click" />
-                                                    <Separator />
+                                        <ListBox.ContextMenu>
+                                            <ContextMenu Style="{StaticResource PetrichorContextMenuStyle}">
+                                                <MenuItem Header="Pin Playlist"
+                                                          Style="{StaticResource PetrichorContextMenuItemStyle}"
+                                                          CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                          Click="PinPlaylistMenuItem_Click" />
+                                                    <Separator Style="{StaticResource PetrichorContextMenuSeparatorStyle}" />
                                                     <MenuItem Header="Rename Playlist"
+                                                              Style="{StaticResource PetrichorContextMenuItemStyle}"
                                                               CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                               Click="RenamePlaylistButton_Click" />
                                                     <MenuItem Header="Delete Playlist"
+                                                              Style="{StaticResource PetrichorContextMenuItemStyle}"
                                                               CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                               Click="DeletePlaylistButton_Click" />
                                                 </ContextMenu>
@@ -1207,13 +1311,24 @@
                                         </StackPanel>
 
                                         <WrapPanel Grid.Row="1" Margin="0,14,0,12">
+                                            <Button x:Name="AddTracksToPlaylistButton"
+                                                    Content="Add Tracks..."
+                                                    Style="{StaticResource TransportButtonStyle}"
+                                                    Margin="0,0,10,10"
+                                                    Padding="14,10"
+                                                    Click="AddTracksToPlaylistButton_Click" />
+                                            <Button Content="Add Current Track"
+                                                    Style="{StaticResource TransportButtonStyle}"
+                                                    Margin="0,0,10,10"
+                                                    Padding="14,10"
+                                                    Click="AddCurrentTrackToPlaylistButton_Click" />
                                             <Button x:Name="RemovePlaylistTrackButton"
                                                     Content="Remove Selected Track"
                                                     Style="{StaticResource TransportButtonStyle}"
                                                     Margin="0,0,10,10"
                                                     Padding="14,10"
                                                     Click="RemovePlaylistTrackButton_Click" />
-                                            <TextBlock Text="Drag tracks to reorder the playlist."
+                                            <TextBlock Text="Use Add Tracks to pull songs from Library. Drag tracks inside the playlist to reorder them."
                                                        Foreground="#8EA0B5"
                                                        VerticalAlignment="Center"
                                                        Margin="0,0,0,10" />
@@ -1567,28 +1682,33 @@
                         <StackPanel>
                             <TextBlock Text="Playlists" Foreground="White" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8" />
                             <TextBlock x:Name="PlaylistsSummaryTextBlock" Text="No playlists available" Foreground="#9DB0C4" Margin="0,0,0,8" />
-                            <ListBox x:Name="PlaylistsListBox"
-                                     Style="{StaticResource PetrichorListBoxStyle}"
-                                     ItemContainerStyle="{StaticResource PetrichorListBoxItemStyle}"
-                                     ItemTemplate="{StaticResource PlaylistItemTemplate}"
-                                     SelectionChanged="PlaylistsListBox_SelectionChanged"
-                                     MouseDoubleClick="PlaylistsListBox_MouseDoubleClick"
-                                     MinHeight="120">
-                                <ListBox.ContextMenu>
-                                    <ContextMenu>
+                                <ListBox x:Name="PlaylistsListBox"
+                                         Style="{StaticResource PetrichorListBoxStyle}"
+                                         ItemContainerStyle="{StaticResource PetrichorListBoxItemStyle}"
+                                         ItemTemplate="{StaticResource PlaylistItemTemplate}"
+                                         SelectionChanged="PlaylistsListBox_SelectionChanged"
+                                         PreviewMouseWheel="PlaylistListBox_PreviewMouseWheel"
+                                         MouseDoubleClick="PlaylistsListBox_MouseDoubleClick"
+                                         MinHeight="120"
+                                         MaxHeight="260">
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu Style="{StaticResource PetrichorContextMenuStyle}">
                                         <MenuItem Header="Pin Playlist"
+                                                  Style="{StaticResource PetrichorContextMenuItemStyle}"
                                                   CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                   Click="PinPlaylistMenuItem_Click" />
-                                        <Separator />
+                                        <Separator Style="{StaticResource PetrichorContextMenuSeparatorStyle}" />
                                         <MenuItem Header="Rename Playlist"
+                                                  Style="{StaticResource PetrichorContextMenuItemStyle}"
                                                   CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                   Click="RenamePlaylistButton_Click" />
                                         <MenuItem Header="Delete Playlist"
+                                                  Style="{StaticResource PetrichorContextMenuItemStyle}"
                                                   CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                   Click="DeletePlaylistButton_Click" />
-                                    </ContextMenu>
-                                </ListBox.ContextMenu>
-                            </ListBox>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                </ListBox>
                         </StackPanel>
                     </Border>
 
