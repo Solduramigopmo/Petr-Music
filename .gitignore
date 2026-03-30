@@ -1,0 +1,9 @@
+# Windows local secrets
+Configuration/Secrets.props
+
+# .NET / WPF build outputs
+**/bin/
+**/obj/
+
+# Release artifacts
+dist/
