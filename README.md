@@ -1,7 +1,5 @@
 # Petrichor for Windows
 
-Russian version: [README.ru.md](README.ru.md)
-
 This directory is the Windows branch of Petrichor.The WPF shell, the playback wiring, the SQLite data layer, the Windows-specific integrations, and the packaging scripts all live here.
 
 If you plan to publish the Windows version as its own GitHub project, this folder is the part that matters.
